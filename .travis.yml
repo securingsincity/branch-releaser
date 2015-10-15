@@ -14,8 +14,10 @@ deploy:
   - provider: releases
     api_key:
       secure: R4xxz1QwZlkXP3jFKqCnIW/IdGCBpaKJ9dPm53PM1cHcovvIJtY/ZJXS+e1Vs1zwCODhj6AN7BjyysS/YLVs2SV7G9YgjZECKnINXVIGnNGefutWuKho2uXFBBU25pXe10/GjvadlJDA7lbAKJoL0mDi0RituksIx6K+rDheOSI=
-    file: branch-release
+    file:
+      - branch-release
+      - branch-releaser
     skip_cleanup: true
     on:
       tags: true
-      repo: securingsincity/branch-release
+      repo: securingsincity/branch-releaser
