@@ -14,9 +14,7 @@ deploy:
   provider: releases
   api_key:
     secure: edMYzc+2eNEmbczseOnTWjIVKVc+PyjuPHuiVp+gNrXkYkTS/19Kl0NvgUTVfc1lgtMnX8IGpNEL67GcPZEUA84q/3SUX1ayzAcMkQEYOGPrM+hyoJ/PXJ6BnmVZ5gwztYS0u4l58anyLX7RwBEoDS1SW3ch8PZaT3mWm4QcRY7nB/dQel/IIDdgUvG5t8Y3XE7rgYusuilyvVAL0p3UqP+evDMa0o2fmB1Y3hUq+CfInaa0FduHTW8hUaEfpM3HrSmPDFhIkbBO7utbHpB4js/qcTbJhkBWPdWTr6VzFo654tDmMU6Taao//+LB1gLMhYpCoNGf5Qp3HX/AqoQcp+X9D4L2nPzcUtsaUOb4AJUpUb4x1kiX5seGJccFZADyuqT7ma3IwcILgCFJaPCRk1Jc2PsyzXz2szJoS2PcW9OoUtJtmG1ttha9MG6GdY+P8cDEttfyaA6asaFEr99UbKf03YgYV+eMfJtyeCW+fC3DIi9miYFSd+Dsl5nHALeJCJcOQiZ4z49iFtdl6AOMeYQFTKkUzXUFIpbvxAghbgqb/jqN6aqYod9nHBP/tSY2Gb+uFAYDvk11SOHMMZb8VfmvzMDihcdIMGUGEvcfqDVK+Gug/1jcO0bCj2tnJg6jrBeJmVO8wVXR7VkvA2G1l1pFVVe8rdxetaBczAsEmqk=
-  file:
-    - branch-release
-    - branch-releaser
+  file: branch-releaser
   skip_cleanup: true
   on:
     tags: true
