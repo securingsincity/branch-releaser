@@ -7,16 +7,29 @@ import (
 	"os/exec"
 )
 
+// func deleteBranch(branch string) {
+// 	git([]string{"branch", "-D", branch})
+// }
 func checkoutBranch(branch string) {
 	git([]string{"checkout", branch})
 }
+
 func pull() {
 	git([]string{"pull"})
 }
 
 func push() {
-	git([]string{"push"})
+	cmdArgs := []string{"push"}
+	git(cmdArgs)
 }
+
+// func push(force bool) {
+// 	cmdArgs := []string{"push"}
+// 	if force {
+// 		append(cmdArgs, "-u", "origin", branch, "--force")
+// 	}
+// 	git(cmdArgs)
+// }
 
 func mergeMaster() {
 	git([]string{"merge", "origin/master"})
@@ -56,13 +69,18 @@ func main() {
 			currentDir, _ := os.Getwd()
 			println("pulling latest master")
 			checkoutBranch("master")
+			//pull latest master
 			pull()
+			// checkout the branch you want to update
 			println("Changing to " + branch)
 			checkoutBranch(branch)
+			// pull down the latest
 			pull()
 			println("Merging master into " + branch + " for " + currentDir)
+			// merge master into this branhc
 			mergeMaster()
 			println("Pushing up the code")
+			// push it up
 			push()
 		} else {
 			println("branch name required")
