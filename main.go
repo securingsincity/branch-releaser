@@ -8,54 +8,29 @@ import (
 )
 
 func checkoutBranch(branch string) {
-	cmdName := "git"
-	cmdArgs := []string{"checkout", branch}
-	var (
-		cmdOut []byte
-		err    error
-	)
-	if cmdOut, err = exec.Command(cmdName, cmdArgs...).Output(); err != nil {
-		fmt.Fprintln(os.Stderr, "There was an error running git checkout command: ", err)
-		os.Exit(1)
-	}
-	firstSix := string(cmdOut)
-	// return true
-	fmt.Println("output: ", firstSix)
-}
-
-func gitNoArgs(action string) {
-	cmdName := "git"
-	cmdArgs := []string{action}
-	var (
-		cmdOut []byte
-		err    error
-	)
-	if cmdOut, err = exec.Command(cmdName, cmdArgs...).Output(); err != nil {
-		fmt.Fprintln(os.Stderr, "There was an error running git "+action+" command: ", err)
-		os.Exit(1)
-	}
-	firstSix := string(cmdOut)
-	// return true
-	fmt.Println("output: ", firstSix)
+	git([]string{"checkout", branch})
 }
 func pull() {
-	gitNoArgs("pull")
+	git([]string{"pull"})
 }
 
 func push() {
-	gitNoArgs("push")
+	git([]string{"push"})
 }
 
 func mergeMaster() {
+	git([]string{"merge", "origin/master"})
+}
 
+func git(actions []string) {
 	cmdName := "git"
-	cmdArgs := []string{"merge", "origin/master"}
+	cmdArgs := actions
 	var (
 		cmdOut []byte
 		err    error
 	)
 	if cmdOut, err = exec.Command(cmdName, cmdArgs...).Output(); err != nil {
-		fmt.Fprintln(os.Stderr, "There was an error running git merge command: ", err)
+		fmt.Fprintln(os.Stderr, "There was an error running git "+actions[0]+" command: ", err)
 		os.Exit(1)
 	}
 	firstSix := string(cmdOut)
@@ -76,7 +51,7 @@ func main() {
 	}
 
 	app.Action = func(c *cli.Context) {
-		if c.String("b") != "" {
+		if c.IsSet("b") && c.String("b") != "" {
 			branch := c.String("b")
 			currentDir, _ := os.Getwd()
 			println("pulling latest master")
