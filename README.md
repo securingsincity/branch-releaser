@@ -1,5 +1,16 @@
 # branch-releaser
 Command line tool for doing git branch based deployments
+
+## Install
+install [go](https://golang.org/doc/install) and set your GOPATH
+
+`go get github.com/securingsincity/branch-releaser`
+
+`cd $GOPATH/src/github.com/securingsincity/branch-releaser`
+
+`go install`
+
+
 ## Usage
 ```
 NAME:
