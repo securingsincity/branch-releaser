@@ -7,8 +7,8 @@ import (
 	"os/exec"
 )
 
-func branchExists(branch string) {
-	if git([]string{"branch", "--list", branch}) {
+func branchExists(branch string) bool {
+	if gitBool([]string{"branch", "--list", branch}) {
 		return true
 	}
 	return false
@@ -39,6 +39,16 @@ func push(force bool, branch string) {
 
 func mergeMaster() {
 	git([]string{"merge", "origin/master"})
+}
+
+func gitBool(actions []string) bool {
+	cmdName := "git"
+	cmdArgs := actions
+	if cmdOut, err := exec.Command(cmdName, cmdArgs...).Output(); err != nil || len(cmdOut) == 0 {
+		fmt.Fprintln(os.Stderr, "There was an error running git "+actions[0]+" command: ", err)
+		os.Exit(1)
+	}
+	return true
 }
 
 func git(actions []string) {
@@ -83,16 +93,22 @@ func main() {
 			checkoutBranch("master", false)
 			//pull latest master
 			pull()
+
 			if force {
-				println("Deleting branch: " + branch)
-				deleteBranch(branch)
+				if branchExists(branch) {
+					println(branch + " exists")
+					println("Deleting branch: " + branch)
+					deleteBranch(branch)
+				} else {
+					println(branch + " doesnt exist")
+				}
 				println("Checking out new branch: " + branch)
 				checkoutBranch(branch, true)
 				println("Force pushing branch: " + branch)
 				push(true, branch)
 			} else {
 				// checkout the branch you want to update
-				println("Changing to " + branch)
+				println("Checking out " + branch)
 				checkoutBranch(branch, false)
 				// pull down the latest
 				pull()
